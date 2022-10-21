@@ -9,14 +9,14 @@ import java.util.List;
 public interface CountyRepository extends CrudRepository<County, String> {
 
     //@Query("SELECT * FROM tutorials t WHERE t.title LIKE %?1%")
-    @Query("SELECT * FROM County c WHERE c.name = ?1")
+    @Query(value = "SELECT * FROM County WHERE name = ?1", nativeQuery = true)
     List<County> findByName(@Param("name") String name);
 
     //@Query("SELECT t FROM Tutorial t WHERE t.title LIKE %?1%")
-    @Query("SELECT * FROM County c WHERE c.state = ?1")
+    @Query(value = "SELECT * FROM County WHERE state = ?1", nativeQuery = true)
     List<County> findByState(@Param("state") String state);
 
     //@Query(value = "SELECT * FROM USERS WHERE EMAIL_ADDRESS = ?1", nativeQuery = true)
-    @Query("SELECT * FROM County c WHERE c.state = ?1 and c.name = ?2")
+    @Query(value = "SELECT * FROM County WHERE state = ?1 and name = ?2", nativeQuery = true)
     List<County> findByStateAndName(String state,String name);
 }
