@@ -31,15 +31,15 @@ public class CountyController {
         return countyService.list();
     }
 
-//    @GetMapping("/suggest/{name}")
-//    private List<County> getCountyFromName(@PathVariable("name") String name){
-//        if(name.length()>=2){
-//            return countyRepo.findByState(name);
-//        }
-//        else {
-//            return countyRepo.findByName(name);
-//        }
-//    }
+    @GetMapping("/suggest/{name}")
+    private List<County> getCountyFromName(@PathVariable("name") String name){
+        if(name.length()==2){
+            return countyRepo.findByState(name);
+        }
+        else {
+            return countyRepo.findByName(name);
+        }
+    }
 
     @GetMapping("/suggest/{name}/{state}")
     private List<County> getCountyFromBoth(@PathVariable("name") String name,@PathVariable("state") String state){
