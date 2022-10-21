@@ -22,4 +22,8 @@ public class CountyService {
     public String save(List<County> Countys) {
         return "(List<County>) countyRepository.save(Countys)";
     }
+
+//    public List<County> getCountryByName() {
+//        countyRepository.get
+//    }
 }
