@@ -28,7 +28,6 @@ public class FleetStudioApplication {
                 };
                 InputStream inputStream = TypeReference.class.getResourceAsStream("/json/data.json");
                 List<County> Countys = new ObjectMapper().readValue(inputStream, typeReference);
-                System.out.println("Test 2");
                 if (Countys != null && !Countys.isEmpty()) {
                     countyService.saveAll(Countys);
                     System.out.println("All Counties Saved!");
