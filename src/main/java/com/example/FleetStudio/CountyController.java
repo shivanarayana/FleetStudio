@@ -26,49 +26,39 @@ public class CountyController {
         return "Hello";
     }
 
-    @GetMapping("/listAllCountries")
+    @GetMapping("/listAll")
     public List<County> list() {
         return countyService.list();
     }
 
     @GetMapping("/suggest/{name}")
-    private List<County> getCountyFromName(@PathVariable("name") String name){
-        if(name.length()==2){
+    private List<County> getCountyFromName(@PathVariable("name") String name) {
+        if (name.length() == 2) {
             return countyRepo.findByState(name);
-        }
-        else {
+        } else {
             return countyRepo.findByName(name);
         }
     }
 
     @GetMapping("/suggest/{name}/{state}")
-    private List<County> getCountyFromBoth(@PathVariable("name") String name,@PathVariable("state") String state){
-        return countyRepo.findByStateAndName(state,name);
+    private List<County> getCountyFromBoth(@PathVariable("name") String name, @PathVariable("state") String state) {
+        if (state.length() != 2) {
+            state = state + name;
+            name = state.substring(0, state.length() - name.length());
+            state = state.substring(name.length());
+        }
+        return countyRepo.findByStateAndName(state, name);
     }
 
     @PostMapping("/add/county")
     private String saveCountry(@RequestBody County county) {
-        if (county != null) {
-            County county1 = new County();
-            county1.setFips(county.getFips());
-            county1.setName(county.getName());
-            county1.setState(county.getState());
-            countyRepo.save(county1);
-        }
+        countyService.saveCounty(county);
         return "1 record Saved";
     }
 
     @PostMapping("/add/countries")
     private String saveCountries(@RequestBody List<County> countyList) {
-        for (County county : countyList) {
-            if (county != null) {
-                County county1 = new County();
-                county1.setFips(county.getFips());
-                county1.setName(county.getName());
-                county1.setState(county.getState());
-                countyRepo.save(county1);
-            }
-        }
+        countyService.saveAll(countyList);
         return "recordsSaved";
     }
 }

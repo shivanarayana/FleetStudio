@@ -19,11 +19,21 @@ public class CountyService {
         return (List<County>) countyRepository.findAll();
     }
 
-    public String save(List<County> Countys) {
-        return "(List<County>) countyRepository.save(Countys)";
+    public void saveAll(List<County> countyList) {
+        for (County county : countyList) {
+            saveCounty(county);
+            if(county==null) break;
+        }
+        System.out.println("(List<County>) saved(Countys)");
     }
 
-//    public List<County> getCountryByName() {
-//        countyRepository.get
-//    }
+    public void saveCounty(County county) {
+        if (county != null) {
+            County county1 = new County();
+            county1.setFips(county.getFips());
+            county1.setName(county.getName());
+            county1.setState(county.getState());
+            countyRepository.save(county1);
+        }
+    }
 }
