@@ -21,11 +21,6 @@ public class CountyController {
     @Autowired
     CountyService countyService;
 
-    @GetMapping("/Hello")
-    public String getHello() {
-        return "Hello";
-    }
-
     @GetMapping("/listAll")
     public List<County> list() {
         return countyService.list();
